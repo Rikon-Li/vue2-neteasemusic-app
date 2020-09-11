@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-     <router-view />
+  <div id="singers">
+    <h1>歌手</h1>
   </div>
 </template>
 

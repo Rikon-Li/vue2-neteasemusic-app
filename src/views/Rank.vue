@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-     <router-view />
+  <div id="rank">
+    <h1>排行榜</h1>
   </div>
 </template>
 
