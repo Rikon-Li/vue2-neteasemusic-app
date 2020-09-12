@@ -19,6 +19,7 @@ module.exports = {
     }
   },
   devServer: {
+    open: true,
     proxy: {
       '/api': {
         target: 'http://47.112.160.41:3000',

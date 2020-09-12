@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style>
-
+html ,body{
+  background-clip: #f2f3f4; 
+}
 </style>
