@@ -1,14 +1,23 @@
 <template>
   <div id="singers" class="page">
-    <h1>歌手</h1>
+    <category-list :data="category"/>
   </div>
 </template>
 
 <script>
+import CategoryList from '../components/singers/category-list';
 export default {
-
+  components: {
+    CategoryList
+  },
+  data(){
+    return{
+      category: ['华语男','华语女','华语组合','欧美男','欧美女','欧美组合','日本男','日本女','日本组合','韩国男','韩国女','韩国组合','其他男歌手','其他女歌手','其他组合'],
+    }
+  }
 }
 </script>
+
 
 <style>
 
