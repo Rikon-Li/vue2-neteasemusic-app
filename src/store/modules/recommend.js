@@ -38,6 +38,7 @@ export default {
     async requestRecommendList(context) {
       context.commit("setRecomendLoading", true);
       const {data: { result }} = await http.get(RECOMMEND_LIST_API);
+      // console.log(result);
       const newData = result.map(({ id, name, picUrl, playCount }) => ({ id, name, picUrl, playCount }));
       context.commit("setRecommend", newData);
       context.commit("setRecomendLoading", false);
