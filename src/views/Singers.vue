@@ -1,6 +1,6 @@
 <template>
   <div id="singers" class="page">
-    <category-list :category="category" :initial="initial"/>
+    <category-list @passCategory="handleCategory" @passInitial="handleInitial" :category="category" :initials="initials"/>
     <div class="singer-list-wrap">
       <app-scroll class="content" >
         <singer-list :data=defaultList></singer-list>
@@ -20,8 +20,26 @@ export default {
   },
   data(){
     return{
-      category: ['华语男','华语女','华语组合','欧美男','欧美女','欧美组合','日本男','日本女','日本组合','韩国男','韩国女','韩国组合','其他男歌手','其他女歌手','其他组合'],
-      initial: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+      category: [
+        {'name':'华语男','type':1,'area':7},
+        {'name':'华语女','type':2,'area':7},
+        {'name':'华语组合','type':3,'area':7},
+        {'name':'欧美男','type':1,'area':96},
+        {'name':'欧美女','type':2,'area':96},
+        {'name':'欧美组合','type':3,'area':96},
+        {'name':'日本男','type':1,'area':8},
+        {'name':'日本女','type':2,'area':8},
+        {'name':'日本组合','type':3,'area':8},
+        {'name':'韩国男','type':1,'area':16},
+        {'name':'韩国女','type':2,'area':16},
+        {'name':'韩国组合','type':3,'area':16},
+        {'name':'其他男歌手','type':1,'area':0},
+        {'name':'其他女歌手','type':2,'area':0},
+        {'name':'其他组合','type':3,'area':0}],
+      initials: [{'initial':'A'}, {'initial':'B'}, {'initial':'C'}, {'initial':'D'}, {'initial':'E'}, {'initial':'F'}, {'initial':'G'}, {'initial':'H'}, {'initial':'I'}, {'initial':'J'}, {'initial':'K'}, {'initial':'L'}, {'initial':'M'}, {'initial':'N'}, {'initial':'O'}, {'initial':'P'}, {'initial':'Q'}, {'initial':'R'}, {'initial':'S'}, {'initial':'T'}, {'initial':'U'}, {'initial':'V'}, {'initial':'W'}, {'initial':'X'}, {'initial':'Y'}, {'initial':'Z'}],
+      categorySelected: false,
+      initialSelected: false,
+      selectedObj:{}
     }
   },
   computed: {
@@ -31,6 +49,16 @@ export default {
   },
   created(){
     this.$store.dispatch("singers/requestDefaultList");
+  },
+  methods:{
+    handleCategory(index){
+      Object.assign(this.selectedObj,this.category[index]);
+      this.$store.dispatch("singers/requestDefaultList", this.selectedObj);
+    },
+    handleInitial(index){
+      Object.assign(this.selectedObj,this.initials[index]);
+      this.$store.dispatch("singers/requestDefaultList", this.selectedObj);
+    },
   }
 }
 

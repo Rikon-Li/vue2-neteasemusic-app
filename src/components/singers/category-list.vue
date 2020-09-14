@@ -1,15 +1,17 @@
 <template>
   <div class="category-list">
-    <app-scroll class="content" >
+    <app-scrollX class="content" >
       <div class="category-title">
         <span class="title">分类(默认热门):</span>
-        <span v-for="(item, index) in category" :key="index" >{{item}}</span>
+        <span v-for="(item, index) in category" :key="index" @click="selectCategory(index)" :class="{selected: cate == index}" >{{item.name}} </span>
       </div>
-    </app-scroll>
-    <div class="category-title">
-      <span class="title">首字母:</span>
-      <span v-for="(item, index) in initial" :key="index" >{{item}}</span>
-    </div>
+    </app-scrollX>
+    <app-scrollX class="content" >
+      <div class="category-title">
+        <span class="title">首字母:</span>
+        <span v-for="(item, index) in initials" :key="index" @click="selectInitial(index)" :class="{selected: init == index}">{{item.initial}}</span>
+      </div>
+    </app-scrollX>
   </div>
 </template>
 
@@ -17,7 +19,29 @@
 export default {
   props: {
     category: Array,
-    initial: Array
+    initials: Array
+  },
+  data(){
+    return{
+      cate:-1,
+      init:-1
+    }
+  },
+  methods: {
+    selectCategory(index){
+      // console.log(index);
+      this.$emit('passCategory',index);
+      this.cate = index;
+      // console.log(index);
+      // console.log(this.a);
+    },
+    selectInitial(index){
+      // console.log(index);
+      this.$emit('passInitial',index);
+      this.init = index;
+      // console.log(index);
+    }
+
   },
   mounted(){
     // console.log(this.data);
@@ -36,21 +60,30 @@ export default {
   justify-content: space-between;
   overflow: hidden;
   padding: 5px;
-  border: 1px solid #f00;
+  // border: 1px solid #f00;
   .category-title{
     display: flex;
     justify-content: space-between;  
-    overflow-x: auto;  
-    // overflow: hidden;
+    // overflow-x: auto;  
+    overflow: hidden;
     height: 30px;
     align-items: center;
     span{
+      box-sizing: border-box;
       color: $font-color-desc;
-      margin: 0 5px;
+      margin: 0;
       font-size: $font-size-m;
       text-align: center;
       font-weight: 500;
       flex-shrink: 0;
+      line-height: 24px;
+      padding: 0 5px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+    .selected{
+      color: $theme-color;
+      border: 1px solid $theme-color;
     }
     .title{
       color: #808080;
@@ -60,4 +93,5 @@ export default {
 .content{
   width: 100%;
 }
+
 </style>

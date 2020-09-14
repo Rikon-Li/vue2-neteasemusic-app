@@ -38,6 +38,6 @@ export default {
   
 }
 .scroll-wrap{
-  /* width: max-content; */
+  width: max-content;
 }
 </style>
