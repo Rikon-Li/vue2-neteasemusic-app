@@ -1,22 +1,24 @@
-import { SINGERS_API } from "../../api/url";
+import { RANK_API } from "../../api/url";
 import http from "../../api/http";
 
 export default {
   namespaced: true,
   state: {
-    defaultList: [],
+    rankList: [],
   },
   mutations: {
-    setDefaultList(state, payload) {
-      state.defaultList = payload;
+    setRankList(state, payload) {
+      state.rankList = payload;
     },
-
   },
   actions: {
-    async requestDefaultList(context, args={'area':-1,'type':-1}){
-      const {data: {artists}} = await http.get(SINGERS_API,args);
-      const newData = artists.map(({ id, name, picUrl })=>({ id, name, picUrl }));
-      context.commit("setDefaultList", newData);
+    async requestRankList(context){
+      const {data:{list}} = await http.get(RANK_API);
+      // console.log(list);
+      const newData = list.map(({ updateFrequency, tracks, coverImgUrl })=>({ updateFrequency, tracks, coverImgUrl }));
+      console.log(newData);
+      context.commit("setRankList", newData);
+      // console.log(newData);
     }
   }
 };
